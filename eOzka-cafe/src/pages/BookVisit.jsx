@@ -108,7 +108,7 @@ const BookVisit = ({ triggerToast, setShowConfirmModal, setConfirmedBooking }) =
                   className="form-control" 
                   value={bookingForm.phone} 
                   onChange={handleBookingChange} 
-                  placeholder="(123) 456-7890" 
+                  placeholder="+91 12345-12345" 
                   required 
                 />
               </div>
