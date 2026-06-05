@@ -19,25 +19,78 @@
   
   --font-heading: 'Playfair Display', Georgia, serif;
   --font-body: 'Montserrat', sans-serif;
+
+  --bean-corner: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Cg fill='none' stroke='%23724d28' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M34 26c11-10 27-12 37-5 9 6 11 18 6 29-5 10-13 17-20 24-6 6-11 12-13 19-1-7-5-13-11-19-7-7-15-14-19-24-6-12-3-24 10-32Z' fill='%23b1844d'/%3E%3Cpath d='M44 22c-5 9-7 18-6 27 1 8 5 16 12 24'/%3E%3Cpath d='M75 59c7-4 14-5 21-2 8 4 12 11 13 18 0 9-4 17-13 24-8 6-17 8-26 6-8-2-14-7-18-15 6-7 12-14 18-21 2-4 4-7 5-10Z' fill='%23996d3f' opacity='.92'/%3E%3Cpath d='M72 62c-2 6-2 12 1 18 2 5 6 10 11 14'/%3E%3C/g%3E%3C/svg%3E");
   
   --transition: all 0.3s ease;
   --radius: 12px;
 }
 
 [data-theme="light"] {
-  --bg-dark: #fbf9f6;
-  --bg-card: #ffffff;
-  --bg-card-glass: rgba(255, 255, 255, 0.85);
-  --accent: #9a763e;
-  --accent-hover: #7b5828;
-  --accent-glow: rgba(154, 118, 62, 0.2);
-  --text-main: #24201c;
-  --text-muted: #6e6459;
-  --border: rgba(154, 118, 62, 0.3);
-  --border-light: rgba(0, 0, 0, 0.08);
-  --bg-snippet: #f5f0e8;
-  --bg-footer: #e8e2d7;
+  --bg-dark: #faf6ef;
+  --bg-card: #fffaf4;
+  --bg-card-glass: rgba(255, 250, 244, 0.88);
+  --accent: #8a6231;
+  --accent-hover: #6f4a23;
+  --accent-glow: rgba(138, 98, 49, 0.18);
+  --text-main: #201812;
+  --text-muted: #66584a;
+  --border: rgba(138, 98, 49, 0.28);
+  --border-light: rgba(32, 24, 18, 0.08);
+  --bg-snippet: #f4ede3;
+  --bg-footer: #e7ddd0;
   --input-bg: #ffffff;
+}
+
+/* Shared bean hover decoration for cards */
+:is(.highlight-card, .booking-form-box, .booking-list-box, .booking-item-card, .reviews-summary-box, .review-item-card, .contact-info-item, .menu-item-row, .confirm-modal-box) {
+  position: relative;
+  overflow: visible;
+  isolation: isolate;
+}
+
+:is(.highlight-card, .booking-form-box, .booking-list-box, .booking-item-card, .reviews-summary-box, .review-item-card, .contact-info-item, .menu-item-row, .confirm-modal-box)::before,
+:is(.highlight-card, .booking-form-box, .booking-list-box, .booking-item-card, .reviews-summary-box, .review-item-card, .contact-info-item, .menu-item-row, .confirm-modal-box)::after {
+  content: '';
+  position: absolute;
+  width: 74px;
+  height: 74px;
+  background: var(--bean-corner) center/contain no-repeat;
+  opacity: 0;
+  pointer-events: none;
+  filter: drop-shadow(0 8px 12px rgba(0, 0, 0, 0.18));
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  z-index: 0;
+}
+
+:is(.highlight-card, .booking-form-box, .booking-list-box, .booking-item-card, .reviews-summary-box, .review-item-card, .contact-info-item, .menu-item-row, .confirm-modal-box)::before {
+  top: -18px;
+  left: -18px;
+  transform: translate(-6px, -6px) rotate(-10deg);
+}
+
+:is(.highlight-card, .booking-form-box, .booking-list-box, .booking-item-card, .reviews-summary-box, .review-item-card, .contact-info-item, .menu-item-row, .confirm-modal-box)::after {
+  top: auto;
+  right: -18px;
+  bottom: -18px;
+  transform: translate(6px, 6px) rotate(10deg);
+}
+
+:is(.highlight-card, .booking-form-box, .booking-list-box, .booking-item-card, .reviews-summary-box, .review-item-card, .contact-info-item, .menu-item-row, .confirm-modal-box):hover::before,
+:is(.highlight-card, .booking-form-box, .booking-list-box, .booking-item-card, .reviews-summary-box, .review-item-card, .contact-info-item, .menu-item-row, .confirm-modal-box):hover::after,
+:is(.highlight-card, .booking-form-box, .booking-list-box, .booking-item-card, .reviews-summary-box, .review-item-card, .contact-info-item, .menu-item-row, .confirm-modal-box):focus-within::before,
+:is(.highlight-card, .booking-form-box, .booking-list-box, .booking-item-card, .reviews-summary-box, .review-item-card, .contact-info-item, .menu-item-row, .confirm-modal-box):focus-within::after {
+  opacity: 1;
+}
+
+:is(.highlight-card, .booking-form-box, .booking-list-box, .booking-item-card, .reviews-summary-box, .review-item-card, .contact-info-item, .menu-item-row, .confirm-modal-box):hover::before,
+:is(.highlight-card, .booking-form-box, .booking-list-box, .booking-item-card, .reviews-summary-box, .review-item-card, .contact-info-item, .menu-item-row, .confirm-modal-box):focus-within::before {
+  transform: translate(0, 0) rotate(-14deg);
+}
+
+:is(.highlight-card, .booking-form-box, .booking-list-box, .booking-item-card, .reviews-summary-box, .review-item-card, .contact-info-item, .menu-item-row, .confirm-modal-box):hover::after,
+:is(.highlight-card, .booking-form-box, .booking-list-box, .booking-item-card, .reviews-summary-box, .review-item-card, .contact-info-item, .menu-item-row, .confirm-modal-box):focus-within::after {
+  transform: translate(0, 0) rotate(14deg);
 }
 
 /* Reset */
@@ -58,6 +111,19 @@ body {
   font-family: var(--font-body);
   line-height: 1.6;
   overflow-x: hidden;
+}
+
+html,
+body,
+body *,
+body *::before,
+body *::after,
+input,
+textarea,
+select,
+option,
+[contenteditable='true'] {
+  cursor: url('/coffee-cursor.svg') 20 20, auto !important;
 }
 
 /* Typography Utilities */
@@ -103,7 +169,7 @@ a {
   text-transform: uppercase;
   font-size: 0.85rem;
   letter-spacing: 0.08em;
-  cursor: pointer;
+  cursor: url('/coffee-cursor.svg') 20 20, auto;
   transition: var(--transition);
   border: none;
   outline: none;
@@ -146,6 +212,10 @@ a {
   transition: var(--transition);
 }
 
+html[data-theme="light"] .navbar {
+  background-color: rgba(250, 246, 239, 0.92);
+}
+
 .navbar-container {
   display: flex;
   justify-content: space-between;
@@ -158,7 +228,7 @@ a {
   font-size: 1.8rem;
   font-weight: 700;
   color: var(--text-main);
-  cursor: pointer;
+  cursor: url('/coffee-cursor.svg') 20 20, auto;
 }
 
 .logo span {
@@ -176,7 +246,7 @@ a {
   font-size: 0.9rem;
   font-weight: 500;
   color: var(--text-muted);
-  cursor: pointer;
+  cursor: url('/coffee-cursor.svg') 20 20, auto;
   transition: var(--transition);
   position: relative;
   padding: 8px 0;
@@ -205,7 +275,7 @@ a {
   display: none;
   flex-direction: column;
   gap: 6px;
-  cursor: pointer;
+  cursor: url('/coffee-cursor.svg') 20 20, auto;
 }
 
 .hamburger span {
@@ -224,6 +294,49 @@ a {
   background: linear-gradient(rgba(18, 16, 14, 0.6), rgba(18, 16, 14, 0.9)), 
               url('https://images.unsplash.com/photo-1554118811-1e0d58224f24?q=80&w=2000') no-repeat center center/cover;
   padding-top: 80px;
+}
+
+html[data-theme="light"] .hero {
+  background: linear-gradient(rgba(250, 246, 239, 0.18), rgba(250, 246, 239, 0.72)),
+              url('https://images.unsplash.com/photo-1554118811-1e0d58224f24?q=80&w=2000') no-repeat center center/cover;
+}
+
+html[data-theme="light"] .hero-title,
+html[data-theme="light"] .section-title,
+html[data-theme="light"] .form-title,
+html[data-theme="light"] .about-title,
+html[data-theme="light"] .highlight-name,
+html[data-theme="light"] .contact-info-title,
+html[data-theme="light"] .booking-list-title,
+html[data-theme="light"] .review-item-author {
+  color: #201812;
+}
+
+html[data-theme="light"] .hero-desc,
+html[data-theme="light"] .section-desc,
+html[data-theme="light"] .about-text,
+html[data-theme="light"] .highlight-desc,
+html[data-theme="light"] .contact-info-text,
+html[data-theme="light"] .review-item-comment,
+html[data-theme="light"] .menu-item-desc,
+html[data-theme="light"] .booking-item-details,
+html[data-theme="light"] .booking-list-box,
+html[data-theme="light"] .reviews-summary-box,
+html[data-theme="light"] .empty-bookings-state {
+  color: #66584a;
+}
+
+html[data-theme="light"] .hero-subtitle,
+html[data-theme="light"] .about-label,
+html[data-theme="light"] .highlight-price,
+html[data-theme="light"] .review-stars,
+html[data-theme="light"] .nav-link:hover,
+html[data-theme="light"] .nav-link.active {
+  color: #8a6231;
+}
+
+html[data-theme="light"] .hero-title {
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.35);
 }
 
 .hero-content {
@@ -341,7 +454,7 @@ a {
   background-color: var(--bg-card);
   border: 1px solid var(--border-light);
   border-radius: var(--radius);
-  overflow: hidden;
+  overflow: visible;
   transition: var(--transition);
 }
 
@@ -354,6 +467,8 @@ a {
 .highlight-img-container {
   height: 220px;
   overflow: hidden;
+  border-top-left-radius: var(--radius);
+  border-top-right-radius: var(--radius);
 }
 
 .highlight-img {
@@ -416,7 +531,7 @@ a {
   border: 1px solid var(--border-light);
   padding: 10px 24px;
   border-radius: 20px;
-  cursor: pointer;
+  cursor: url('/coffee-cursor.svg') 20 20, auto;
   font-weight: 500;
   transition: var(--transition);
   font-family: var(--font-body);
@@ -558,7 +673,7 @@ a {
   border: none;
   width: 45px;
   height: 42px;
-  cursor: pointer;
+  cursor: url('/coffee-cursor.svg') 20 20, auto;
   font-size: 1.2rem;
   font-weight: bold;
   transition: var(--transition);
@@ -634,7 +749,7 @@ a {
   color: #e06c6c;
   border: none;
   font-size: 0.8rem;
-  cursor: pointer;
+  cursor: url('/coffee-cursor.svg') 20 20, auto;
   text-transform: uppercase;
   font-weight: 600;
   letter-spacing: 0.05em;
@@ -759,7 +874,7 @@ a {
 .star-interactive {
   font-size: 2rem;
   color: var(--text-muted);
-  cursor: pointer;
+  cursor: url('/coffee-cursor.svg') 20 20, auto;
   transition: var(--transition);
   margin-right: 4px;
 }
@@ -846,6 +961,30 @@ a {
   display: flex;
   gap: 20px;
   align-items: center;
+  transition: var(--transition);
+  animation: contactCardIn 0.55s ease both;
+}
+
+.contact-info-list .contact-info-item:nth-child(1) {
+  animation-delay: 0.05s;
+}
+
+.contact-info-list .contact-info-item:nth-child(2) {
+  animation-delay: 0.12s;
+}
+
+.contact-info-list .contact-info-item:nth-child(3) {
+  animation-delay: 0.19s;
+}
+
+.contact-info-list .contact-info-item:nth-child(4) {
+  animation-delay: 0.26s;
+}
+
+.contact-info-item:hover {
+  transform: translateY(-2px);
+  border-color: var(--border);
+  box-shadow: 0 10px 24px rgba(200, 169, 110, 0.08);
 }
 
 .contact-info-icon-wrapper {
@@ -859,6 +998,11 @@ a {
   justify-content: center;
   font-size: 1.4rem;
   flex-shrink: 0;
+  transition: var(--transition);
+}
+
+.contact-info-item:hover .contact-info-icon-wrapper {
+  transform: translateY(-2px) scale(1.06) rotate(-4deg);
 }
 
 .contact-info-title {
@@ -870,6 +1014,18 @@ a {
 .contact-info-text {
   color: var(--text-muted);
   font-size: 0.9rem;
+}
+
+@keyframes contactCardIn {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* Toast alert */
@@ -1058,7 +1214,7 @@ a {
 .theme-toggle-btn {
   background: transparent;
   border: none;
-  cursor: pointer;
+  cursor: url('/coffee-cursor.svg') 20 20, auto;
   color: var(--text-main);
   font-size: 1.2rem;
   display: flex;
