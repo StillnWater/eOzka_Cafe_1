@@ -111,6 +111,7 @@ body {
   font-family: var(--font-body);
   line-height: 1.6;
   overflow-x: hidden;
+  cursor: none;
 }
 
 html,
@@ -123,7 +124,36 @@ textarea,
 select,
 option,
 [contenteditable='true'] {
-  cursor: url('/coffee-cursor.svg') 20 20, auto !important;
+  cursor: none !important;
+}
+
+.custom-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  width: 72px;
+  height: 72px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  pointer-events: none;
+  opacity: 0;
+  transform: translate3d(-100px, -100px, 0) translate(-50%, -50%) scale(0.92);
+  transition: opacity 0.2s ease, transform 0.12s ease;
+  will-change: transform, opacity;
+}
+
+.custom-cursor.is-visible {
+  opacity: 1;
+}
+
+.custom-cursor.is-pressed {
+  opacity: 1;
+}
+
+body:not(.cursor-ready) .custom-cursor {
+  display: none;
 }
 
 /* Typography Utilities */

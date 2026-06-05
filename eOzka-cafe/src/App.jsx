@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import Home from './pages/Home'
@@ -8,6 +8,7 @@ import Reviews from './pages/Reviews'
 import Contact from './pages/Contact'
 
 const App = () => {
+  const cursorRef = useRef(null)
   const [activeTab, setActiveTab] = useState('home')
   
   // Theme state switcher
@@ -20,6 +21,75 @@ const App = () => {
     document.documentElement.setAttribute('data-theme', theme)
     localStorage.setItem('eozka_theme', theme)
   }, [theme])
+
+  useEffect(() => {
+    document.body.classList.add('cursor-ready')
+
+    return () => {
+      document.body.classList.remove('cursor-ready')
+    }
+  }, [])
+
+  useEffect(() => {
+    const cursor = cursorRef.current
+
+    if (!cursor) return undefined
+
+    let isVisible = false
+    let currentX = window.innerWidth / 2
+    let currentY = window.innerHeight / 2
+    let targetX = currentX
+    let targetY = currentY
+    let animationFrameId = 0
+
+    const animate = () => {
+      currentX += (targetX - currentX) * 0.18
+      currentY += (targetY - currentY) * 0.18
+
+      const scale = cursor.classList.contains('is-pressed') ? 0.82 : 1
+      const rotate = cursor.classList.contains('is-pressed') ? -4 : 0
+
+      cursor.style.transform = `translate3d(${currentX}px, ${currentY}px, 0) translate(-50%, -50%) scale(${scale}) rotate(${rotate}deg)`
+      animationFrameId = window.requestAnimationFrame(animate)
+    }
+
+    const handlePointerMove = (event) => {
+      targetX = event.clientX
+      targetY = event.clientY
+      if (!isVisible) {
+        cursor.classList.add('is-visible')
+        isVisible = true
+      }
+    }
+
+    const handlePointerDown = () => {
+      cursor.classList.add('is-pressed')
+    }
+
+    const handlePointerUp = () => {
+      cursor.classList.remove('is-pressed')
+    }
+
+    const handlePointerLeave = () => {
+      cursor.classList.remove('is-visible')
+      isVisible = false
+    }
+
+    window.addEventListener('pointermove', handlePointerMove)
+    window.addEventListener('pointerdown', handlePointerDown)
+    window.addEventListener('pointerup', handlePointerUp)
+    window.addEventListener('blur', handlePointerLeave)
+
+    animationFrameId = window.requestAnimationFrame(animate)
+
+    return () => {
+      window.removeEventListener('pointermove', handlePointerMove)
+      window.removeEventListener('pointerdown', handlePointerDown)
+      window.removeEventListener('pointerup', handlePointerUp)
+      window.removeEventListener('blur', handlePointerLeave)
+      window.cancelAnimationFrame(animationFrameId)
+    }
+  }, [])
 
   const toggleTheme = () => {
     setTheme(prev => prev === 'dark' ? 'light' : 'dark')
@@ -61,6 +131,13 @@ const App = () => {
 
   return (
     <>
+      <div
+        ref={cursorRef}
+        className="custom-cursor"
+        aria-hidden="true"
+        style={{ backgroundImage: "url('/coffee-cursor.svg')" }}
+      />
+
       <Navbar activeTab={activeTab} setActiveTab={setActiveTab} theme={theme} toggleTheme={toggleTheme} />
 
       <main style={{ minHeight: '80vh' }}>
